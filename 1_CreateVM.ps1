@@ -18,3 +18,6 @@ $DVDDrive = Get-VMDvdDrive -VMName $VMName
 
 # Configure Virtual Machine to Boot from DVD
 Set-VMFirmware -VMName $VMName -FirstBootDevice $DVDDrive
+
+# Start the VM
+Start-VM -ComputerName "DC1"
