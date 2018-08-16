@@ -1,27 +1,26 @@
-
-
-#set static IP address and DNS servers
+#Declare variables
 $ipaddress = "10.0.1.117" 
 $ipprefix = "24" 
 $ipgw = "10.0.1.1" 
 $ipdns = "10.0.1.117"
 $ipdns2 = "8.8.8.8" 
 $ipif = (Get-NetAdapter).ifIndex 
+$featureLogPath = "c:\poshlog\featurelog.txt" 
+$newname = "DC1"
+$addsTools = "RSAT-AD-Tools" 
 
-New-NetIPAddress -IPAddress $ipaddress -PrefixLength $ipprefix ` 
--InterfaceIndex $ipif -DefaultGateway $ipgw 
+#Set static IP address and DNS servers
+New-NetIPAddress -IPAddress $ipaddress -PrefixLength $ipprefix -InterfaceIndex $ipif -DefaultGateway $ipgw 
 Set-DnsClientServerAddress -InterfaceIndex $ipif -ServerAddresses ($ipdns, $ipdns2)
 
 
-#rename the computer 
-$newname = "DC1" 
+#Rename the computer 
 Rename-Computer -NewName $newname -force 
 
-#install features 
-$featureLogPath = "c:\poshlog\featurelog.txt" 
+#Install features 
 New-Item $featureLogPath -ItemType file -Force 
-$addsTools = "RSAT-AD-Tools" 
 Add-WindowsFeature $addsTools 
 Get-WindowsFeature | Where installed >>$featureLogPath 
-#restart the computer 
+
+#Restart the computer 
 Restart-Computer
