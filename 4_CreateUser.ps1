@@ -19,7 +19,7 @@ $Surname = "McCray"
 $Displayname = "Allie McCray"
 $Name = "amccray"
 $Password = "Pass1w0rd"
-$Identity = "CN=ammccray,CN=Users,DC=contoso,DC=com"
+$Identity = "CN=amccray,CN=Users,DC=contoso,DC=com"
 $SecureString = ConvertTo-SecureString $Password -AsPlainText -Force
 
 
